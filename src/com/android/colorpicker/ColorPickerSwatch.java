@@ -18,6 +18,7 @@ package com.android.colorpicker;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -59,11 +60,11 @@ public class ColorPickerSwatch extends FrameLayout implements View.OnClickListen
 
     protected void setColor(int color) {
         Drawable[] colorDrawable = new Drawable[]
-                {getContext().getResources().getDrawable(R.drawable.color_picker_swatch)};
+                {ContextCompat.getDrawable(getContext(), R.drawable.color_picker_swatch)};
         mSwatchImage.setImageDrawable(new ColorStateDrawable(colorDrawable, color));
     }
 
-    private void setChecked(boolean checked) {
+    public void setChecked(boolean checked) {
         if (checked) {
             mCheckmarkImage.setVisibility(View.VISIBLE);
         } else {
@@ -76,5 +77,15 @@ public class ColorPickerSwatch extends FrameLayout implements View.OnClickListen
         if (mOnColorSelectedListener != null) {
             mOnColorSelectedListener.onColorSelected(mColor);
         }
+    }
+
+    public int getColor()
+    {
+        return mColor;
+    }
+
+    public boolean getChecked()
+    {
+        return mCheckmarkImage.getVisibility() == View.VISIBLE;
     }
 }
